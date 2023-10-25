@@ -1,20 +1,25 @@
 import { Hono } from "https://deno.land/x/hono@v3.4.1/mod.ts";
-import data from "./data.json" assert { type: "json" };
+import { html } from "https://deno.land/x/hono@v3.4.1/utils/html.ts";
 
 const app = new Hono();
 
-app.get("/", (c) => c.text("Welcome to dinosaur API!"));
-
-app.get("/api/", (c) => c.json(data));
-
-app.get("/api/:dinosaur", (c) => {
-  const dinosaur = c.req.param("dinosaur").toLowerCase();
-  const found = data.find((item) => item.name.toLowerCase() === dinosaur);
-  if (found) {
-    return c.json(found);
-  } else {
-    return c.text("No dinosaurs found.");
-  }
+app.get("/", (c) => {
+  const source = html`
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- ... -->
+</head>
+<body>
+    <h1>今日の天気</h1>
+    <ul>
+        <li><span id="city">Tokyo</span><span id="weather">晴れ</span></li>
+        <li><span id="city">Osaka</span><span id="weather">雨</span></li>
+        <li><span id="city">Nagoya</span><span id="weather">曇り</span></li>
+    </ul>
+</body>
+</html>
+  `
 });
 
 Deno.serve(app.fetch);
