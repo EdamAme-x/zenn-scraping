@@ -1,10 +1,9 @@
 import { Hono } from "https://deno.land/x/hono@v3.4.1/mod.ts";
-import { html } from "https://deno.land/x/hono@v3.4.1/utils/html.ts";
 
 const app = new Hono();
 
 app.get("/", (c) => {
-  const source = html`
+  const source = `
 <!DOCTYPE html>
 <html>
 <head>
