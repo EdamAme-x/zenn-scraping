@@ -19,6 +19,8 @@ app.get("/", (c) => {
 </body>
 </html>
   `
+
+  return c.html(source)
 });
 
 Deno.serve(app.fetch);
